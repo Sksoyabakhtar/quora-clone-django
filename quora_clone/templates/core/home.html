@@ -1,0 +1,41 @@
+{% extends 'core/base.html' %}
+{% block content %}
+<div class="container py-4">
+    <h2 class="mb-4 fw-bold text-center text-primary">All Questions</h2>
+
+    {% if questions %}
+        <div class="row">
+            {% for question in questions %}
+                <div class="col-md-6 col-lg-4 mb-4">
+                    <div class="card shadow-sm h-100 border-0 question-card">
+                        <div class="card-body">
+                            <h5 class="card-title fw-semibold">{{ question.title|truncatewords:10 }}</h5>
+                            <p class="card-text text-muted small mb-2">
+                                Asked by <strong>{{ question.author.username }}</strong><br>
+                                <span class="text-secondary">{{ question.created_at|date:"M d, Y H:i" }}</span>
+                            </p>
+                            <a href="{% url 'question_detail' question.pk %}" class="btn btn-outline-primary btn-sm w-100">View Answers</a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="text-center text-muted mt-5">
+            <h5>No questions posted yet.</h5>
+        </div>
+    {% endif %}
+</div>
+
+<style>
+    .question-card {
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        border-radius: 15px;
+    }
+
+    .question-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    }
+</style>
+{% endblock %}

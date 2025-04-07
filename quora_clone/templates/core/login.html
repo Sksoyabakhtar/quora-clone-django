@@ -1,0 +1,40 @@
+{% extends 'core/base.html' %}
+{% block content %}
+<h2 class="mb-4">Login to Your Account</h2>
+<form method="POST" class="p-4 shadow rounded bg-white">
+    {% csrf_token %}
+    <div class="mb-3">
+        <label>Username</label>
+        <input type="text" name="username" class="form-control" required>
+    </div>
+    <div class="mb-3 position-relative">
+        <label>Password</label>
+        <input type="password" name="password" id="loginPassword" class="form-control" required>
+        <span onclick="togglePassword()" style="position:absolute; right:15px; top:70%; transform:translateY(-50%); cursor:pointer;">
+            👁️
+        </span>
+    </div>
+    <button type="submit" class="btn btn-dark w-100">Login</button>
+</form>
+
+<!-- SweetAlert CDN -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script>
+    function togglePassword() {
+        const input = document.getElementById('loginPassword');
+        input.type = input.type === "password" ? "text" : "password";
+    }
+
+    {% if messages %}
+        {% for message in messages %}
+            Swal.fire({
+                icon: "{{ message.tags }}",
+                title: "{{ message }}",
+                timer: 2500,
+                showConfirmButton: false
+            });
+        {% endfor %}
+    {% endif %}
+</script>
+{% endblock %}

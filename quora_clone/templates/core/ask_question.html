@@ -1,0 +1,43 @@
+{% extends 'core/base.html' %}
+{% block content %}
+<div class="container py-4">
+    <div class="p-4 bg-white shadow-sm rounded">
+        <h2 class="mb-4 text-primary fw-bold">Ask a Question</h2>
+
+        <form method="POST">
+            {% csrf_token %}
+
+            <div class="mb-3">
+                <label class="form-label fw-semibold">Title</label>
+                <input type="text" name="title" class="form-control" placeholder="Enter your question title..." required>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label fw-semibold">Description</label>
+                <textarea name="body" rows="5" class="form-control" placeholder="Explain your question in detail..." required></textarea>
+            </div>
+
+            <button type="submit" class="btn btn-success w-100 fw-semibold">Submit Question</button>
+        </form>
+    </div>
+</div>
+
+<style>
+    .form-control {
+        border-radius: 8px;
+        box-shadow: none;
+        transition: border-color 0.3s ease-in-out;
+    }
+
+    .form-control:focus {
+        border-color: #0d6efd;
+        box-shadow: 0 0 0 0.1rem rgba(13, 110, 253, 0.25);
+    }
+
+    .btn-success {
+        border-radius: 8px;
+        padding: 10px;
+        font-size: 16px;
+    }
+</style>
+{% endblock %}
